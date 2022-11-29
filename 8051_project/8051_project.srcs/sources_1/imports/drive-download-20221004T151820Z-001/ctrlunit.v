@@ -89,10 +89,16 @@ module ctrlunit(
 input clock,
 input reset,
 input wire [`OPCODE_LEN -4'b1 :0] IR_op,       // 8 bits Instroction Registor (RI7, RI6, RI5)
+input wire cond_C,
+input wire cond_P,
+input wire cond_bit,
+input wire cond_A_dir,
 
 output wire PCload,
 output wire IRload,
 output wire Aload,
+output wire JMPmux,
+output wire OP_register,
 output wire Add,
 output wire Sub,
 output wire Dec,
@@ -133,7 +139,34 @@ initial
 
 // --------------------------------------------------
 // BEGIN Update Outputs:
+assign PCload  =    (state == `_FETCH || state == `_ACALL_1 
+                    || state == `_ACALL_2 || state == `_LCALL_1 
+                    || state == `_LCALL_2 || state == `_RET_1 
+                    || state == `_RET_2 || state == `_JNB_1 
+                    || state == `_JNB_2 || state == `_JB_1 
+                    || state == `_JB_2 || state == `_JNC_1 
+                    || state == `_JNC_2 || state == `_JC_1 
+                    || state == `_JC_2 || state == `_CJNE_1 
+                    || state == `_CJNE_2)     ? `ENABLE : `DISABLE;
 
+assign IRload  =    (state == `_FETCH)        ? `ENABLE : `DISABLE;
+
+assign Aload   =    ((state == `_MOV && ~OP_register) || state == `_ADD 
+                    || state == `_SUBB || state == `_XRL || state == `_ANL 
+                    || state == `_ORL  || (state == `_CPL && Cpl_8) 
+                    || state == `_RR   || state == `_RL || state == `_CJNE_1 
+                    || state == `_CJNE_2)     ? `ENABLE : `DISABLE;
+
+assign Add     =    (state == `_ADD)          ? `ENABLE : `DISABLE;
+assign Sub     =    (state == `_SUBB)         ? `ENABLE : `DISABLE;
+assign Dec     =    (state == `_DEC)          ? `ENABLE : `DISABLE;
+assign Inc     =    (state == `_INC)          ? `ENABLE : `DISABLE;
+assign Xor     =    (state == `_XRL)          ? `ENABLE : `DISABLE;
+assign Or      =    (state == `_ORL)          ? `ENABLE : `DISABLE;
+assign Cpl_1   =    (state == `_CPL && Cpl_1) ? `ENABLE : `DISABLE;
+assign Cpl_8   =    (state == `_CPL && Cpl_8) ? `ENABLE : `DISABLE;
+assign Rr      =    (state == `_RR)           ? `ENABLE : `DISABLE;
+assign Rl      =    (state == `_RL)           ? `ENABLE : `DISABLE;
 // END OF Update Outputs:
 // --------------------------------------------------
 
@@ -143,82 +176,319 @@ initial
 
 
 // BEGIN State Machine:
-always @ (state)
-    
-    begin
+always @ (state) 
+begin
     case(state)
-        `_START: begin
+        `_START: 
+        begin
             next_state <= `_FETCH;
         end
-        `_FETCH: begin
+
+        `_FETCH: 
+        begin
             next_state <= `_DECODE; 
         end
-        `_DECODE: begin
-            next_state <= `_DECODE;
+
+        `_DECODE: 
+        begin
+            case(IR_op)
+                `OP_MOV_Ri:
+                begin
+                    next_state <= `_MOV;
+                end
+
+                `OP_MOV_DATA:
+                begin
+                    next_state <= `_MOV;
+                end
+                
+                `OP_MOV_DIRECT:
+                begin
+                    next_state <= `_MOV;
+                end
+
+                `OP_ADD_DIRECT:
+                begin
+                    next_state <= `_ADD;
+                end
+
+                `OP_ADD_REG:
+                begin
+                    next_state <= `_ADD;
+                end
+
+                `OP_SUB_DIRECT:
+                begin
+                    next_state <= `_SUBB;
+                end
+
+                `OP_SUB_REG:
+                begin
+                    next_state <= `_SUBB;
+                end 
+
+                `OP_DEC:
+                begin
+                    next_state <= `_DEC;
+                end
+
+                `OP_INC:
+                begin
+                    next_state <= `_INC;
+                end
+
+                `OP_XOR_DIRECT:
+                begin
+                    next_state <= `_XRL;
+                end
+
+                `OP_XOR_REG:
+                begin
+                    next_state <= `_XRL;
+                end
+
+                `OP_MOV_DATA:
+                begin
+                    next_state <= `_MOV;
+                end
+
+                `OP_AND_DIRECT:
+                begin
+                    next_state <= `_ANL;
+                end
+
+                `OP_AND_REG:
+                begin
+                    next_state <= `_ANL;
+                end
+
+                `OP_OR_DIRECT:
+                begin
+                    next_state <= `_ORL;
+                end
+
+                `OP_OR_REG:
+                begin
+                    next_state <= `_ORL;
+                end
+
+                `OP_CPL_BIT:
+                begin
+                    next_state <= `_CPL;
+                end                   
+
+                `OP_CPL_A:
+                begin
+                    next_state <= `_CPL;
+                end
+
+                `OP_SETB:
+                begin
+                    next_state <= `_SETB;
+                end
+
+                `OP_CLR:
+                begin
+                    next_state <= `_CLR;
+                end
+
+                `OP_RL:
+                begin
+                    next_state <= `_RL;
+                end
+
+                `OP_RR:
+                begin
+                    next_state <= `_RR;
+                end
+
+                `OP_ACALL:
+                begin
+                    next_state <= `_ACALL_1;
+                end
+                
+                `OP_LCALL:
+                begin
+                    next_state <= `_LCALL_1;
+                end
+
+                `OP_JNB:
+                begin
+                    next_state <= `_JNB_1;
+                end
+
+                `OP_JB:
+                begin
+                    next_state <= `_JB_1;
+                end
+
+                `OP_JC:
+                begin
+                    next_state <= `_JC_1;
+                end
+
+                `OP_CJNE:
+                begin
+                    next_state <= `_CJNE_1;
+                end
+                
+                default:
+                    next_state <= `_START; 
+            endcase
         end
-        `_MOV: begin
+
+        `_MOV: 
+        begin
+            next_state <= `_START;
         end
-        `_ADD: begin   
+        
+        `_ADD: 
+        begin   
+            next_state <= `_START;
         end
-        `_SUBB: begin
+        
+        `_SUBB: 
+        begin
+            next_state <= `_START;
         end
-        `_DEC: begin
+        
+        `_DEC: 
+        begin
+            next_state <= `_START;
         end
-        `_INC: begin 
+        
+        `_INC: 
+        begin 
+            next_state <= `_START;
         end
-        `_XRL: begin 
+        
+        `_XRL: 
+        begin 
+            next_state <= `_START;
         end
-        `_ANL: begin
+        
+        `_ANL: 
+        begin
+            next_state <= `_START;
         end
-        `_ORL: begin
+        
+        `_ORL: 
+        begin
+            next_state <= `_START;
         end
-        `_CPL: begin
+        
+        `_CPL: 
+        begin
+            next_state <= `_START;
         end
-        `_SETB: begin
+        
+        `_SETB: 
+        begin
+            next_state <= `_START;
         end
-        `_CLR: begin
+        
+        `_CLR: 
+        begin
+            next_state <= `_START;
         end
-        `_RL: begin
+        
+        `_RL: 
+        begin
+            next_state <= `_START;
         end
-        `_RR: begin
+        
+        `_RR: 
+        begin
+            next_state <= `_START;
         end
-        `_ACALL_1: begin
+        
+        `_ACALL_1: 
+        begin
+            next_state <= `_ACALL_2;
         end
-        `_ACALL_2: begin
+
+        `_ACALL_2: 
+        begin
+            next_state <= `_START;
         end
-        `_LCALL_1: begin
+
+        `_LCALL_1: 
+        begin
+            next_state <= `_LCALL_2;
         end
-        `_LCALL_2: begin
+        
+        `_LCALL_2: 
+        begin
+            next_state <= `_START;
         end
-        `_RET_1: begin
+        
+        `_RET_1: 
+        begin
+            next_state <= `_RET_2;
         end
-        `_RET_2: begin
+        
+        `_RET_2:
+        begin
+            next_state <= `_START;
         end
-        `_JNB_1: begin
+        
+        `_JNB_1: 
+        begin
+            next_state <= `_JNB_2;
         end
-        `_JNB_2: begin
+        
+        `_JNB_2: 
+        begin
+            next_state <= `_START;
         end
-        `_JB_1: begin
+        
+        `_JB_1: 
+        begin
+            next_state <= `_JB_2;
         end
-        `_JB_2: begin
+        
+        `_JB_2: 
+        begin
+            next_state <= `_START;
         end
-        `_JNC_1: begin
+        
+        `_JNC_1: 
+        begin  
+            next_state <= `_JNC_2;
         end
-        `_JNC_2: begin
+        
+        `_JNC_2: 
+        begin
+            next_state <= `_START;
         end
-        `_JC_1: begin 
+        
+        `_JC_1: 
+        begin 
+            next_state <= `_JC_2;
         end
-        `_JC_2: begin 
+        
+        `_JC_2: 
+        begin 
+            next_state <= `_START;
         end
-        `_CJNE_1: begin
+        
+        `_CJNE_1: 
+        begin
+            next_state <= `_CJNE_2;
         end
-        `_CJNE_2: begin
+        
+        `_CJNE_2: 
+        begin
+            next_state <= `_START;
         end
-        default: begin
+        
+        default: 
+        begin
+            next_state <= `_START;
         end
-     endcase
+    endcase
     
-    end
+end
 
 // END OF State MAchine:
 // --------------------------------------------------
