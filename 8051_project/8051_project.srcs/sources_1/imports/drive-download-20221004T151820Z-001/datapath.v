@@ -38,8 +38,10 @@ module datapath(
     input wire Cpl_1,
     input wire Cpl_8,
     input wire Rr,
-    input wire Rl
-        
+    input wire Rl,
+
+    output wire [23:0] PC,
+    output wire [24:0] IR
 );
 // END OF Variables declarations:
 // --------------------------------------------------
@@ -68,6 +70,8 @@ RAM RAM(
 );
 
 ALU ALU(
+    .clock(clock),    
+    .reset(reset),
     .Add(Add),
     .Sub(Sub),
     .Dec(Dec),

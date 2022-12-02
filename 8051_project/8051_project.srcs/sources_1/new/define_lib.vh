@@ -1,5 +1,5 @@
-`ifndef __defineLib_vh__
-`define __defineLib_vh__
+`ifndef __define_lib_vh__
+`define __define_lib_vh__
 
 // Logical Enable
 `define EN  1'b1

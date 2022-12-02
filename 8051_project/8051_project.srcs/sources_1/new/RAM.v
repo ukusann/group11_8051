@@ -32,11 +32,11 @@ module RAM(
     output wire TCON   
  );
  
- reg [7:0] data [  0:`DATA_LEN];
-  
- reg [7:0] SFR  [128:`DATA_LEN];
-  
- reg [7:0] data_out_temp;
+reg [7:0] data [  0:`DATA_LEN];
+
+reg [7:0] SFR  [128:`DATA_LEN];
+
+reg [7:0] data_out_temp;
 
 initial 
 begin
@@ -63,18 +63,20 @@ assign IE   = SFR[ `IE_ADDR ];
 assign IP   = SFR[ `IP_ADDR ];
 assign PSW  = SFR[ `PSW_ADDR];
 assign TCON = SFR[`TCON_ADDR];
+
  // ====================== END OF OUTPUTS ========================
  // ==============================================================
  
 always @(posedge clock) begin
     
-    if(wr == `EN &&  addr > 8'h7F && direct == `EN ) 
+    if (reset);
+    else if(wr == `EN &&  addr > 8'h7F && direct == `EN ) 
         SFR[addr] <= data_bus;
     else if (wr == `EN && direct == ~`EN )
         data[addr] <= data_bus;
     else if(rd)
         data_out_temp <= data[addr];
-    if (reset);
+    
         
 end
     
