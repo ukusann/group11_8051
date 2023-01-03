@@ -1,99 +1,50 @@
 `timescale 1ns / 1ps
 
-`include "define_lib.vh"
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11/29/2022 03:43:38 PM
-// Design Name: 
-// Module Name: ALU
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
+`define OP_ADD_DIRECT   8'h25
+`define OP_ADD_REG      8'h28
+`define OP_SUB_DIRECT   8'h95
+`define OP_SUB_REG      8'h98
+`define OP_DEC          8'h18
+`define OP_INC          8'h08
+`define OP_XOR_DIRECT   8'h68
+`define OP_XOR_REG      8'h62
+`define OP_AND_DIRECT   8'h58
+`define OP_AND_REG      8'h52
+`define OP_OR_DIRECT    8'h48
+`define OP_OR_REG       8'h42
+`define OP_CPL_BIT      8'hB2
+`define OP_CPL_A        8'hF4
+`define OP_SETB         8'hD2
+`define OP_CLR          8'hE4
+`define OP_RL           8'h23
+`define OP_RR           8'h03
 
+`define MSB_8           8'h07
 
-module ALU
-(
-    input wire clock,            // sysclock
-    input wire reset,            // reset
-    input wire Add,
-    input wire Sub,
-    input wire Dec,
-    input wire Inc,
-    input wire Xor,
-    input wire And,
-    input wire Or,
-    input wire Cpl_1,
-    input wire Cpl_8,
-    input wire Rr,
-    input wire Rl,
-
-    input   wire [24:0] IR,
-    input   wire A,
-    input   wire PSW,
-    output  wire [15:0] addr,
-    output  wire [7:0] data_bus
-);
-
-reg [7:0]   reg_1;
-reg [7:0]   reg_2;
-reg [7:0]   result;
-reg [15:0]  res_addr;
-reg [7:0]   carry;
-initial 
-begin
-
-end
-
-// ==============================================================
-// ========================= OUTPUTS ============================
-
-assign data_bus = result;
-
-// ====================== END OF OUTPUTS ========================
-// ==============================================================
-
-// ==============================================================
-// ========================= EXECUTION ============================
-
-always @(posedge clock) 
-begin
-    reg_1   <= IR[16:9];
-    reg_2   <= IR[7:0];
-    carry = ((8'b1000000 & PSW) >> 7) ? 8'b00000001 : 8'b00000000; 
-    if (reset);
+//_______________________________________________________________________
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  ALU  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+module ALU( clk, rst, valid_insr_en, IR_op, rd, rs, cpl_b );
     
-    else if(Add)
-    begin
-        result <= A + reg_2; 
-        res_addr = `A_ADDR;
-    end
+    input wire clk, rst;
+    input wire valid_insr_en;          // enable instrution register load
+    input wire [ `MSB_8:0] IR_op;      // Instrution
+    input wire [ `MSB_8:0] rd;         // first register
+    input wire [ `MSB_8:0] rs;         // second register
+    input wire             cpl_b;      // register bit cpl (1 bit) 
+    
+    
+    
+    reg [`MSB_8:0]a, b;    // temp accumulators
+    
+    // Immediate operand
+    
+    // Operand selection
+    
+    
+    addSub adder(op, ci, a, b, result, co, underf, overf);
+    RlRr shift(op, a, result);
+    xorAndOr logic(op, a, b, result, p);
+    cpl cpl(a, result, mode, bit);
+    clrSet clrSetBit(b, result, op);
 
-    else if(Sub)
-    begin
-        result <= A - carry - reg_2; 
-        res_addr = `A_ADDR;
-    end
-
-    else if(Dec)
-    begin
-        result <= reg_1 - 8'b00000001; 
-        //res_addr = ;
-    end
-
-end
-
-
- // ====================== END OF EXECUTION ========================
- // ==============================================================
 endmodule

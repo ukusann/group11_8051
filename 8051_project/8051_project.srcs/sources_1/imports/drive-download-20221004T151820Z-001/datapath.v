@@ -19,32 +19,22 @@
 //====================================================
 //====================================================
 
-module datapath(
+module datapath(clk, rst, hit, en_ir_op); 
 // --------------------------------------------------
-// BEGIN Defines declarations:    
-	input clock,
-	input reset,
+// BEGIN Defines declarations:
+    
+	input wire clk;
+	input wire rst;
+	input wire hit;
+	input wire en_ir_op;
 	
-	input wire PCload,
-    input wire IRload,
-    input wire Aload,
-    input wire Add,
-    input wire Sub,
-    input wire Dec,
-    input wire Inc,
-    input wire Xor,
-    input wire And,
-    input wire Or,
-    input wire Cpl_1,
-    input wire Cpl_8,
-    input wire Rr,
-    input wire Rl,
-
-    output wire [23:0] PC,
-    output wire [24:0] IR
-);
+	
 // END OF Variables declarations:
 // --------------------------------------------------
+
+wire valid_insr_en = hit & en_ir_op;
+
+instrutionFetch(clk, rst, hit, en_ir_op, pc, IR_op, rd, rs, cond, cond_b, offset8, offset15, addr11, addr16);
 RAM RAM(
     .clock(clock),    
     .reset(reset),
@@ -69,21 +59,7 @@ RAM RAM(
     .TCON(TCON)   
 );
 
-ALU ALU(
-    .clock(clock),    
-    .reset(reset),
-    .Add(Add),
-    .Sub(Sub),
-    .Dec(Dec),
-    .Inc(Inc),
-    .Xor(Xor),
-    .And(And),
-    .Or(Or),
-    .Cpl_1(Cpl_1),
-    .Cpl_8(Cpl_8),
-    .Rr(Rr),
-    .Rl(Rl)
-    );
+ALU ALU( clk, rst, hit, en_ir_op, IR_op, rd, rs, cpl_b );
 //====================================================
 //====================================================
 

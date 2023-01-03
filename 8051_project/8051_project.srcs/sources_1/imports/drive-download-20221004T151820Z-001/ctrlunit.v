@@ -512,46 +512,4 @@ always @ (posedge clock)
 
 //====================================================
 //====================================================
-
-
-cu_ALU cu_ALU(
-    .clock(clock),    
-    .reset(reset),
-    .Add(Add),
-    .Sub(Sub),
-    .Dec(Dec),
-    .Inc(Inc),
-    .Xor(Xor),
-    .And(And),
-    .Or(Or),
-    .Cpl_1(Cpl_1),
-    .Cpl_8(Cpl_8),
-    .Rr(Rr),
-    .Rl(Rl)
-    );
-    
-    
-cu_RAM cu_RAM(
-    .clock(clock),    
-    .reset(reset),
-    .wr(wr),          
-    .rd(rd),          
-    .addr(addr),      
-    .data_in(data_in),   
-    .data_out(data_out),  
-    .A(A),
-    .P0(P0),
-    .SP(SP),
-    .TMOD(TMOD),
-    .DPL(DPL),
-    .DPH(DPH),
-    .TL0(TL0),
-    .TL1(TL1),
-    .TH0(TH0),
-    .TH1(TH1),
-    .IE(IE),
-    .IP(IP),
-    .PSW(PSW),
-    .TCON(TCON)   
-);
 endmodule

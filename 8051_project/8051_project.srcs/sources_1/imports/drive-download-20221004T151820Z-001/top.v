@@ -42,17 +42,9 @@ ctrlunit ctrl_unit(
 );
 
 datapath data_path(
-	.clock		(clock),
-    .reset		(reset),
-    .A_input	(A_input),
-	.PCload		(PCload),
-    .IRload		(IRload),
-    .INmux		(INmux),
-	.Aload		(Aload),
-	.JNZmux		(JNZmux),
-	.cond_A		(cond_A),
-	.IR_op		(IR_op),
-	.AOutPut	(AOutPut),
-	.Out_enable (Out_enable)
+	.clk(clk),
+    .rst(rst),
+    .hit(hit), 
+    .en_ir_op(en_ir_op)
 );
 endmodule

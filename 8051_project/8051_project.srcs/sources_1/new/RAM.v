@@ -2,8 +2,6 @@
 
 `include "define_lib.vh"
   
-`define DATA_LEN    16'hFF
- 
 module RAM(   
 
     input wire clock,            // sysclock
@@ -11,7 +9,7 @@ module RAM(
     input wire wr,               // write flag
     input wire rd,               // read flag
     input wire direct,           // acess the memory directly
-    input wire [16:0] addr,      // memory address
+    input wire [15:0] addr,      // memory address
     
     inout wire [7:0] data_bus,   // 8 bits word
     
@@ -29,18 +27,30 @@ module RAM(
     output wire IE,
     output wire IP,
     output wire PSW,
-    output wire TCON   
+    output wire TCON,   
+    
+    output wire R0,
+    output wire R1,
+    output wire R2,
+    output wire R3,
+    output wire R4,
+    output wire R5,
+    output wire R6,
+    output wire R7
  );
  
-reg [7:0] data [  0:`DATA_LEN];
+ reg [7:0] data [`DATA_LEN:0];
+  
+ reg [7:0] SFR  [`DATA_LEN:128];
+  
+ reg [7:0] data_out_temp;
 
-reg [7:0] SFR  [128:`DATA_LEN];
-
-reg [7:0] data_out_temp;
-
-initial 
-begin
-
+ reg [1:0] RS;
+ 
+ 
+ 
+initial begin
+        SFR[`SP_ADDR] <= 8'h07;
 end
  
  // ==============================================================
@@ -58,26 +68,40 @@ assign TL0  = SFR[ `TL0_ADDR];
 assign TL1  = SFR[ `TL1_ADDR];
 assign TH0  = SFR[ `TH0_ADDR];
 assign TH1  = SFR[ `TH1_ADDR];
-
 assign IE   = SFR[ `IE_ADDR ];
 assign IP   = SFR[ `IP_ADDR ];
 assign PSW  = SFR[ `PSW_ADDR];
 assign TCON = SFR[`TCON_ADDR];
 
+assign R0 = data[PSW];
+assign R1 = data[PSW];
+assign R2 = data[PSW];
+assign R3 = data[PSW];
+assign R4 = data[PSW];
+assign R5 = data[PSW];
+assign R6 = data[PSW];
+assign R7 = data[PSW];
+
  // ====================== END OF OUTPUTS ========================
  // ==============================================================
  
 always @(posedge clock) begin
+
+    if (reset)
+        SFR[`SP_ADDR] <= 8'h07;
+    else if (wr) begin
+        if(addr > 8'h7F && direct == `EN)
+            SFR[addr] <= data_bus;
+        else 
+            data[addr] <= data_bus;
+    end
     
-    if (reset);
-    else if(wr == `EN &&  addr > 8'h7F && direct == `EN ) 
-        SFR[addr] <= data_bus;
-    else if (wr == `EN && direct == ~`EN )
-        data[addr] <= data_bus;
-    else if(rd)
-        data_out_temp <= data[addr];
-    
-        
+    else if (rd) begin
+        if(addr > 8'h7F && direct == `EN ) 
+            data_out_temp <= SFR[addr];
+        else 
+            data_out_temp <= data[addr];
+    end
 end
-    
+
 endmodule
