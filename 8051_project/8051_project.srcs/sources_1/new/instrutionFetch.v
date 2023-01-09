@@ -38,7 +38,7 @@
     output wire [`MSB_11:0] addr11;     // addr acall (11 bit)
     output wire [`MSB_16:0] addr16;     // addr lcall (11 bit)
     
-    wire [23:0] insr;                   // Instrution register
+    wire [23:0] insr;                   // InstruCtion register
     ROM code(pc, insr);
     
     assign IR_op    = insr [23:16];  
