@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
-`define OR  2'b00
-`define XOR 2'b01
-`define AND 2'b10
+`define ANL   4'h2
+`define ORL   4'h3
+`define XRL   4'h4
 
 module xorAndOr(op, a, b, result, p);
     input        op;        // operations: 1 -> and, 0 -> xor;
@@ -10,9 +10,9 @@ module xorAndOr(op, a, b, result, p);
     output [7:0] result;    // result of the operation
     output       p;         // bit parity
  
-assign result = (op == `OR)  ? a|b : 8'bz;
-assign result = (op == `XOR) ? a^b : 8'bz;
-assign result = (op == `AND) ? a&b : 8'bz;
+assign result = (op == `ANL) ? a|b : 
+                (op == `ORL) ? a^b :
+                (op == `XRL) ? a&b : 8'h0;
 
 assign p = result[0];
 

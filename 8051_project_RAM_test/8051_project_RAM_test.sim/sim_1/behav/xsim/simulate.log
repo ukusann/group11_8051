@@ -1,0 +1,17 @@
+Vivado Simulator 2019.2
+Time resolution is 1 ps
+Stopped at time : 5 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 143
+Stopped at time : 10 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" Line 143
+Stopped at time : 15 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 143
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 143
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 180
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 186
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 189
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 141
+Stopped at time : 25 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 111
+Stopped at time : 30 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" Line 153
+Stopped at time : 30 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" Line 153
+Stopped at time : 35 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" Line 153
+Stopped at time : 35 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" Line 153
+Stopped at time : 35 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 143
+Stopped at time : 35 ns : File "/home/matheus/group11_8051/8051_project_RAM_test/8051_project_RAM_test.srcs/sources_1/imports/new/RAM.v" Line 163

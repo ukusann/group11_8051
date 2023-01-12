@@ -5,27 +5,30 @@
  `define MSB_15 8'hE
  `define MSB_16 8'hF
 
- // 24 bits
- // 0000 0000 | 0000 0000 | 0000 0000 |
- //     IS         rd           rs      
+ // 32 bits
+ // 0000 0000 | 0000 0000 | 0000 0000 | 0000 0000
+ //     IS         rd           rs       offset
  
-     /*__________________________________
-    rr     ->  -- | op  |  rd   | rs   |   
-    ri     ->  -- | op  | rd    | imm  |
-    br8    ->  -- | op  | cond  |offset|
-    br1    ->  -- | op  |-----|b|offset|
-    acall  ->  -- | op|||addr8+3|      |
-    lcall  ->  -- | op  |    addr 16   |
-    ____________________________________*/
+     /*_________________________________________
+    rr     ->  -- | op  |  rd    | rs   |------|   
+    ri     ->  -- | op  |  rd    | imm  |------|
+    brNE   ->  -- | op  |  rd    |  rs  |offset|
+    br8    ->  -- | op  | cond   |------|offset|
+    br1    ->  -- | op  |-------b|------|offset|
+    br1c   ->  -- | op  |-------0|------|offset|      
+    acall  ->  -- | op||| addr8+3|------|------|
+    lcall  ->  -- | op  |    addr 16    |------|
+    ____________________________________________*/
  
  
- module instrutionFetch( clk, rst, hit, en_ir_op, pc, IR_op, rd, rs, cpl_b, cond, cond_b, offset8, offset15, addr11, addr16);
+ module instrutionFetch( clk, rst, hit, en_ir_op, branch, pc, IR_op, rd, rs, cpl_b, cond, cond_b, offset8, addr11, addr16);
     
     input wire clk;
     input wire rst;
     input wire hit;          // 
     input wire en_ir_op;     // enable instrution register
-    input wire pc;           // program counter
+    input wire branch;
+    input wire [15:0]pc;           // program counter
     
     output wire [ `MSB_8:0] IR_op;      // Instrution
     output wire [ `MSB_8:0] rd;         // first register
@@ -34,24 +37,21 @@
     output wire [ `MSB_8:0] cond;       // branch condition (8 bit)
     output wire             cond_b;     // branch condition (1 bit)
     output wire [ `MSB_8:0] offset8;    // jump offset (8 bit)
-    output wire [`MSB_15:0] offset15;   // jump offset (15 bit)
     output wire [`MSB_11:0] addr11;     // addr acall (11 bit)
     output wire [`MSB_16:0] addr16;     // addr lcall (11 bit)
     
-    wire [23:0] insr;                   // InstruCtion register
+    wire [31:0] insr;                   // Instrution register
     ROM code(pc, insr);
     
-    assign IR_op    = insr [23:16];  
-    assign rd       = insr [15: 8];
-    assign rs       = insr [ 7: 0];
-    assign cpl_b    = insr [  16 ];
-    assign cond_b   = insr [  16 ];
-    assign cond     = insr [15: 8];
-    assign offset8  = insr [ 7: 0];
-    assign offset15 = insr [ 7: 0];  
-    assign addr11   = insr [18: 8];  // op[2] + op[1] + op[0] + insr [15: 8] (acall) 
-    assign addr16   = insr [ 7: 0];
-    
+    assign IR_op    = insr [31:24];  
+    assign rd       = insr [23:16];
+    assign rs       = insr [15: 8];
+    assign cpl_b    = insr [  23 ];
+    assign cond_b   = insr [  23 ];
+    assign cond     = insr [23:16];
+    assign offset8  = insr [7: 0];   
+    assign addr11   = insr [26:16];  // op[2] + op[1] + op[0] + insr [23:16] (acall) 
+    assign addr16   = insr [23: 8];
     
  
  endmodule
