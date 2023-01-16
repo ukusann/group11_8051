@@ -5,7 +5,8 @@
 `define EN  1'b1
 
 // memories addrs:
-
+//_______________________________________________________________________
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  RAM  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 `define DATA_LEN    8'hFF
 `define SFR_LEN     8'h80
 // ----- SFR: Special Functions Registers -----
@@ -38,6 +39,24 @@
 `define BIT_ADDR_MIN 8'h20 // bit address begin
 `define BIT_ADDR_MAX 8'h30 // bit address final    
 
+//_______________________________________________________________________
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  ALU  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// ----- Opcodes -----
+`define NO_OP 4'h0
+`define ADD   4'hC
+`define SUBB  4'h1
+`define ANL   4'h2
+`define ORL   4'h3
+`define XRL   4'h4
+`define RL    4'h5
+`define RR    4'h6
+`define SETB  4'h7
+`define CLR   4'h8
+`define CPL   4'h9
+`define INC   4'hA
+`define DEC   4'hB
 
+`define MSB_4           8'h03
+`define MSB_8           8'h07
 
 `endif

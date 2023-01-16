@@ -11,7 +11,7 @@ module tb_tob_1;
 	reg rd;
 	reg direct;
 	reg addressable_b;
-	reg [3:0] rd_bit_address;
+	reg [3:0] bit_address;
 	reg [7:0] addr;
 	reg is_regist;
 	
@@ -68,7 +68,7 @@ module tb_tob_1;
 		.rd				(rd),
 		.direct			(direct),
 		.addressable_b	(addressable_b),
-		.rd_bit_address	(rd_bit_address),
+		.bit_address	(bit_address),
 		.addr			(addr),
 		.is_regist		(is_regist),
 		.data_bus_in	(data_bus_in),
@@ -119,7 +119,7 @@ module tb_tob_1;
 		rd				= 0;
 		direct			= 0;
 		addressable_b 	= 0;
-		rd_bit_address	= 4'h3;
+		bit_address	= 4'h3;
 		addr			= 8'h74;
 		is_regist		= 0;
 

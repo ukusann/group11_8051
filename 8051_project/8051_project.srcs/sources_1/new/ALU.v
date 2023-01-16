@@ -18,7 +18,7 @@
 `define MSB_4           8'h03
 `define MSB_8           8'h07
 
-`define A_ADDR          8'hE0    // acumulator
+`define A_ADDR          8'hE0    // accumulator
 
 
 //_______________________________________________________________________

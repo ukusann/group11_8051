@@ -8,7 +8,7 @@ module top(
     input wire rd,                      // read flag
     input wire direct,                  // acess the memory directly
     input wire addressable_b,           // access the bit directly
-    input wire [3:0] rd_bit_address,    // address of bit to be read
+    input wire [3:0] bit_address,    // address of bit to be read
     input wire [7:0] addr,              // memory address
     input is_regist,
 
@@ -61,7 +61,7 @@ module top(
 
 
 
-RAM ram(clock, reset, wr, rd, direct, addressable_b, rd_bit_address,
+RAM ram(clock, reset, wr, rd, direct, addressable_b, bit_address,
             addr, is_regist, data_bus_in, A_in, P0_in, SP_in, TMOD_in,
             DPL_in, DPH_in, TL0_in, TL1_in, TH0_in, TH1_in, IE_in,
             IP_in, PSW_in, TCON_in, A_out, P0_out, SP_out, TMOD_out,
