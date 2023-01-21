@@ -69,9 +69,8 @@ module tb_tob_1;
 		Reg_in			= 8'h09;
 		
 		// Wait 100 ns for global rst to finish
-		#10;
+		#100;
 		rst = 0;
-		#10;
 		
         
 		// Add stimulus here

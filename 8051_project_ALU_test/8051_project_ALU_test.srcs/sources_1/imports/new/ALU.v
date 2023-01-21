@@ -45,7 +45,7 @@ module ALU( alu_flag, imm, clk, rst, valid_insr_en, op, rd, rs, cpl_b, ci,
     wire [`MSB_8:0] result_cpl;
     wire [`MSB_8:0] result_sc;
     
-    assign A_out =  (op_alu == `ADD || op == `INC || op == `SUBB || op == `DEC)? result_addsub :
+    assign A_out =  (op_alu == `ADD || op_alu == `INC || op_alu == `SUBB || op_alu == `DEC)? result_addsub :
                     (op_alu == `RL || op_alu == `RR)? result_rlrr :
                     (op_alu == `ANL || op_alu == `ORL || op_alu == `XRL)? result_logic :
                     (op_alu == `CLR)? result_cpl :
@@ -60,7 +60,7 @@ module ALU( alu_flag, imm, clk, rst, valid_insr_en, op, rd, rs, cpl_b, ci,
                  
     assign b = (imm == `EN)                 ? rs :
                (rs < 8'h08 && imm != `EN)   ? Reg_in :
-               (op == `INC || op == `DEC)    ? 8'b01: 8'b00;
+               (op_alu == `INC || op_alu == `DEC)    ? 8'b01: 8'b00;
      
      
     addSub adder     (op_alu, ci, a, b, result_addsub, co, x, underf, overf);
