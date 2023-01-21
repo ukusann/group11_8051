@@ -69,7 +69,7 @@ module tb_tob_1;
 		Reg_in			= 8'h09;
 		
 		// Wait 100 ns for global rst to finish
-		#100;
+		#10;
 		rst = 0;
 		
         
