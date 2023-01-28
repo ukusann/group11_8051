@@ -8,20 +8,20 @@ module tb_tob_1;
 	reg alu_flag, imm;
     reg clk, rst;
     reg valid_insr_en;          // enable instrution register load
-    reg [ `MSB_4:0] op;         // operation
-    reg [ `MSB_8:0] rd;         // first register
-    reg [ `MSB_8:0] rs;         // second register
+    reg [3:0] op;         		// operation
+    reg [7:0] rd;         		// first register
+    reg [7:0] rs;         		// second register
     reg cpl_b;                  // register bit cpl (1 bit) 
     reg ci;
     
-    reg [`MSB_8:0] A_in;
-    reg [`MSB_8:0] B_in;
-    reg [`MSB_8:0] Reg_in;
+    reg [7:0] A_in;
+    reg [7:0] B_in;
+    reg [7:0] Reg_in;
 
 	//--------Outputs-------
-	wire [`MSB_8:0] A_out;
-    wire [`MSB_8:0] B_out;
-    wire [`MSB_8:0] Reg_out;    
+	wire [7:0] A_out;
+    wire [7:0] B_out;
+    wire [7:0] Reg_out;    
     
     wire overf;
     wire underf;
@@ -55,16 +55,16 @@ module tb_tob_1;
 	initial begin
 		// Initialize Inputs
 		alu_flag 		= 1;
-		imm 			= 1;
+		imm 			= 0;
     	clk			    = 0;
 		rst			    = 1;
     	valid_insr_en	= 1;        
-    	op 				= `ADD;         
+    	op 				= `DEC;         
     	rd				= `A_ADDR;          
-    	rs				= 8'h08;          
-    	cpl_b			= 0;                  
+    	rs				= 8'h09;          
+    	cpl_b			= 1;                  
     	ci				= 0;
-		A_in			= 8'h44;
+		A_in			= 8'h10;
 		B_in			= 8'h07;
 		Reg_in			= 8'h09;
 		

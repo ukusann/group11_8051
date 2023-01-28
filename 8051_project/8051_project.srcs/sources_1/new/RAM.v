@@ -1,8 +1,10 @@
 `timescale 1ns / 1ps
 
 `include "define_lib.vh"
-  
-module RAM(clock, reset, wr, rd, direct, addressable_b, rd_bit_address,
+
+//_______________________________________________________________________
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  RAM  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+module RAM(clock, reset, wr, rd, direct, addressable_b, bit_address,
             addr, is_regist, data_bus_in, A_in, P0_in, SP_in, TMOD_in,
             DPL_in, DPH_in, TL0_in, TL1_in, TH0_in, TH1_in, IE_in,
             IP_in, PSW_in, TCON_in, A_out, P0_out, SP_out, TMOD_out,
@@ -18,7 +20,7 @@ input wire wr;                      // write flag
 input wire rd;                      // read flag
 input wire direct;                  // acess the memory directly
 input wire addressable_b;           // access the bit directly
-input wire [3:0] rd_bit_address;    // address of bit to be read
+input wire [3:0] bit_address;       // address of bit to be read
 input wire [7:0] addr;              // memory address
 
 input is_regist;
@@ -141,7 +143,7 @@ assign R7 = data[`R7_ADDR + RegBank[PSW_in[4:3]]];
 always @(posedge clock) begin
 
     if (reset) begin
-        SFR[`SP_ADDR]   <= 8'h07;
+        SFR[ `SP_ADDR ] <= 8'h07;
         SFR[ `A_ADDR  ] <= A_in;
         SFR[ `P0_ADDR ] <= P0_in;
         SFR[`TMOD_ADDR] <= TMOD_in;
@@ -164,11 +166,16 @@ always @(posedge clock) begin
         if(addr > 8'h7F)
             if(direct == `EN)
                 if(addressable_b)
-                    SFR[addr][rd_bit_address] <= data_bus_in[0]; 
+                    SFR[addr][bit_address] <= data_bus_in[0]; 
                 else
                     SFR[addr] <= data_bus_in;   
             else
                 data[addr] <= data_bus_in;
+        else if(addr < `BIT_ADDR_MAX && addr >= `BIT_ADDR_MIN)
+            if(addressable_b)
+                data[addr][bit_address] <= data_bus_in[0];
+            else    
+                data[addr] <= data_bus_in; 
         else
             if(is_regist)
                 data[RegBank[PSW_in[4:3]] + addr] <= data_bus_in;
@@ -178,15 +185,12 @@ always @(posedge clock) begin
     
     else if (rd) begin
         if(addr > 8'h7F)
-            if(direct == `EN)
-                data_out_temp <= addressable_b ? {7'h0,SFR[addr][rd_bit_address]} : SFR[addr]; 
-            else 
-                data_out_temp <= data[addr];
+            data_bus_out <= direct ? (addressable_b ? {7'h0,SFR[addr][bit_address]}: SFR[addr]) 
+                            : data_out_temp <= data[addr];
+        else if(addr < `BIT_ADDR_MAX && addr >= `BIT_ADDR_MIN)
+            data_out_temp <= addressable_b ? {7'h0, data[addr][bit_address]} : data[addr]; 
         else
-            if(is_regist) 
-                data_out_temp <= data[RegBank[PSW_in[4:3]] + addr];
-            else
-                data_out_temp <= data[addr];
+            data_out_temp <= is_regist ? data[RegBank[PSW_in[4:3]] + addr] : data[addr];
     end
 end
 

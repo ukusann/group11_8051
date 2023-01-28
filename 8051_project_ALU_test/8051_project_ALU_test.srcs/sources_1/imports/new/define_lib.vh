@@ -59,6 +59,4 @@
 // `define MSB_4           8'h03
 // `define MSB_8           8'h07
 
-`define MSB_4           3
-`define MSB_8           7
 `endif
