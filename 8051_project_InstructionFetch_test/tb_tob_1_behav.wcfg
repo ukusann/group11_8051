@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_tob_1_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_tob_1" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="145001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="159"></NameColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="16" />
+   <wvobject type="logic" fp_name="/tb_tob_1/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/hit">
+      <obj_property name="ElementShortName">hit</obj_property>
+      <obj_property name="ObjectShortName">hit</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/en_ir_op">
+      <obj_property name="ElementShortName">en_ir_op</obj_property>
+      <obj_property name="ObjectShortName">en_ir_op</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/branch">
+      <obj_property name="ElementShortName">branch</obj_property>
+      <obj_property name="ObjectShortName">branch</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/pc_in">
+      <obj_property name="ElementShortName">pc_in[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_in[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/IR_op">
+      <obj_property name="ElementShortName">IR_op[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IR_op[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/rd">
+      <obj_property name="ElementShortName">rd[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/rs">
+      <obj_property name="ElementShortName">rs[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rs[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/cpl_b">
+      <obj_property name="ElementShortName">cpl_b</obj_property>
+      <obj_property name="ObjectShortName">cpl_b</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/cond">
+      <obj_property name="ElementShortName">cond[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cond[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_tob_1/cond_b">
+      <obj_property name="ElementShortName">cond_b</obj_property>
+      <obj_property name="ObjectShortName">cond_b</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/offset8">
+      <obj_property name="ElementShortName">offset8[7:0]</obj_property>
+      <obj_property name="ObjectShortName">offset8[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/addr11">
+      <obj_property name="ElementShortName">addr11[10:0]</obj_property>
+      <obj_property name="ObjectShortName">addr11[10:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/addr16">
+      <obj_property name="ElementShortName">addr16[15:0]</obj_property>
+      <obj_property name="ObjectShortName">addr16[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_tob_1/pc_out">
+      <obj_property name="ElementShortName">pc_out[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_out[15:0]</obj_property>
+   </wvobject>
+</wave_config>

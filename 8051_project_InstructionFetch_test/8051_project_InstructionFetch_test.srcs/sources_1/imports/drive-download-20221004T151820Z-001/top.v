@@ -8,15 +8,15 @@ module top(
     input wire branch,
     input wire [15:0] pc_in,        // program counter
 
-    output wire [7:0]   IR_op,      // Instrution
-    output wire [7:0]   rd,         // first register
-    output wire [7:0]   rs,         // second register
+    output wire [ 7:0]   IR_op,      // Instrution
+    output wire [ 7:0]   rd,         // first register
+    output wire [ 7:0]   rs,         // second register
     output wire         cpl_b,      // register bit cpl (1 bit)
-    output wire [7:0]   cond,       // branch condition (8 bit)
+    output wire [ 7:0]   cond,       // branch condition (8 bit)
     output wire         cond_b,     // branch condition (1 bit)
-    output wire [7:0]   offset8,    // jump offset (8 bit)
-    output wire [7:0]   addr11,     // addr acall (11 bit)
-    output wire [7:0]   addr16,      // addr lcall (11 bit)
+    output wire [ 7:0]   offset8,    // jump offset (8 bit)
+    output wire [10:0]   addr11,     // addr acall (11 bit)
+    output wire [15:0]   addr16,      // addr lcall (16 bit)
     output wire [15:0]  pc_out
 
 );

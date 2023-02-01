@@ -1,0 +1,1120 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Wed Feb  1 15:44:05 2023
+# Process ID: 26646
+# Current directory: /home/matheus/group11_8051/8051_project_InstructionFetch_test
+# Command line: vivado 8051_project_InstructionFetch_test.xpr
+# Log file: /home/matheus/group11_8051/8051_project_InstructionFetch_test/vivado.log
+# Journal file: /home/matheus/group11_8051/8051_project_InstructionFetch_test/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project 8051_project_InstructionFetch_test.xpr
+update_compile_order -fileset sources_1
+launch_simulation
+launch_simulation
+source tb_tob_1.tcl
+run all
+close_sim
+launch_simulation
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+restart
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 90
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 99
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 90
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 90
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 90
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 99
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+restart
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 66
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 67
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 66
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 68
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 95
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 84
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 70
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 74
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+restart
+run all
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 76
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 69
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 69
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 69
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 69
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 70
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 72
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 78
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 84
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 78
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 70
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+restart
+run all
+remove_bps -file {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} -line 72
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 67
+add_bp {/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sources_1/imports/new/instrutionFetch.v} 70
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+step
+step
+step
+step
+step
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+step
+run all
+run all
+run all
+run all
+run all
+restart
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+close_sim
+launch_simulation
+source tb_tob_1.tcl
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+run all
+save_wave_config {/home/matheus/group11_8051/8051_project_InstructionFetch_test/tb_tob_1_behav.wcfg}
+add_files -fileset sim_1 -norecurse /home/matheus/group11_8051/8051_project_InstructionFetch_test/tb_tob_1_behav.wcfg
+set_property xsim.view /home/matheus/group11_8051/8051_project_InstructionFetch_test/tb_tob_1_behav.wcfg [get_filesets sim_1]
+close_sim
+launch_simulation
+open_wave_config /home/matheus/group11_8051/8051_project_InstructionFetch_test/tb_tob_1_behav.wcfg
+source tb_tob_1.tcl
+run all
