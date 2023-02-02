@@ -3,7 +3,11 @@
 <!--The data in this file is primarily intended for consumption by Xilinx tools.
 The structure and the elements are likely to change over the next few releases.
 This means code written to parse this file will need to be revisited each subsequent release.-->
+<<<<<<< HEAD
 <application name="pa" timeStamp="Tue Jan 31 19:19:22 2023">
+=======
+<application name="pa" timeStamp="Tue Jan 31 19:42:36 2023">
+>>>>>>> refs/remotes/origin/main
 <section name="Project Information" visible="false">
 <property name="ProjectID" value="e6591fcebf5c4381872b06d55d4c2be0" type="ProjectID"/>
 <property name="ProjectIteration" value="1" type="ProjectIteration"/>
@@ -48,9 +52,15 @@ This means code written to parse this file will need to be revisited each subseq
 <property name="WaveformView_GOTO_TIME_0" value="4" type="GuiHandlerData"/>
 </item>
 <item name="Other">
+<<<<<<< HEAD
 <property name="GuiMode" value="35" type="GuiMode"/>
 <property name="BatchMode" value="0" type="BatchMode"/>
 <property name="TclMode" value="28" type="TclMode"/>
+=======
+<property name="GuiMode" value="56" type="GuiMode"/>
+<property name="BatchMode" value="0" type="BatchMode"/>
+<property name="TclMode" value="34" type="TclMode"/>
+>>>>>>> refs/remotes/origin/main
 </item>
 </section>
 </application>

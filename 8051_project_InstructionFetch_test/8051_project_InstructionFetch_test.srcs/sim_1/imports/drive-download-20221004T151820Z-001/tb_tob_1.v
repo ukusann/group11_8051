@@ -13,15 +13,15 @@ module tb_tob_1;
     reg [15:0] pc_in;  
 
 	//--------Outputs-------
-    wire [7:0]   IR_op;      // Instrution
-    wire [7:0]   rd;         // first register
-    wire [7:0]   rs;         // second register
+    wire [ 7:0]  IR_op;      // Instrution
+    wire [ 7:0]  rd;         // first register
+    wire [ 7:0]  rs;         // second register
     wire         cpl_b;      // register bit cpl (1 bit)
-    wire [7:0]   cond;       // branch condition (8 bit)
+    wire [ 7:0]  cond;       // branch condition (8 bit)
     wire         cond_b;     // branch condition (1 bit)
-    wire [7:0]   offset8;    // jump offset (8 bit)
-    wire [7:0]   addr11;     // addr acall (11 bit)
-    wire [7:0]   addr16;      // addr lcall (11 bit)
+    wire [ 7:0]  offset8;    // jump offset (8 bit)
+    wire [10:0]  addr11;     // addr acall (11 bit)
+    wire [15:0]  addr16;     // addr lcall (11 bit)
     wire [15:0]  pc_out;
 
 	// Instantiate the Unit Under Test (UUT)
@@ -57,6 +57,7 @@ module tb_tob_1;
 		#10;
 		rst = 0;
 		en_ir_op = 1'b1;
+		
 		
         
 		// Add stimulus here
