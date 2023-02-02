@@ -28,7 +28,7 @@
 // MOV
 `define OP_MOV_A   8'hF6
 `define OP_MOV_R   8'hF5
-`define OP_MOV_B   8'h85
+`define OP_MOV_DD  8'h85
 
 // ALU
 `define OP_ADD_D   8'h25
@@ -74,8 +74,26 @@
 
 //====================================================
 //====================================================
+/*
+* Control Signal:
+    Fetch signals:
+    - hit
+    - en_ir_op
+    - PCload
+    Decode signals:
+    - mov
+    - alu
+    - Jmux (uses PCload too)
+    - call
+    - Rn_load
+    - A_load
+    - BIT_load
+    
+*/
 
-module datapath(clk, rst, hit, PCload, en_ir_op, alu, Rn_load, A_load, B_load, BIT_load, Jmux, IR_op); 
+
+
+module datapath(clk, rst, hit, PCload, en_ir_op, mov, alu, Rn_load, A_load, B_load, BIT_load, Jmux, call, IR_op, endOP); 
 // --------------------------------------------------
 // BEGIN Defines declarations:
     
@@ -84,14 +102,17 @@ module datapath(clk, rst, hit, PCload, en_ir_op, alu, Rn_load, A_load, B_load, B
 	input  wire hit;
 	input  wire PCload;
 	input  wire en_ir_op;
+	input  wire [2:0]mov;
 	input  wire alu;
 	input  wire Rn_load;
 	input  wire A_load;
 	input  wire B_load;
 	input  wire BIT_load;
 	input  wire [2:0]Jmux;
-	
+    input  wire [1:0]call;
+    
 	output wire IR_op;
+	output wire endOP;
 	
 	
 // END OF Variables declarations:
@@ -123,53 +144,98 @@ wire [`MSB_8:0] TCON;
 
 // Reg File:
 
-wire [ `MSB_8:0] rd;         // first register
-wire [ `MSB_8:0] rs;          // second register
+wire [ `MSB_8:0] r1;         // first register
+wire [ `MSB_8:0] r2;          // second register
 wire             cpl_b;      // register bit cpl (1 bit)
 wire [ `MSB_8:0] cond;       // branch condition (8 bit)
 wire             cond_b;     // branch condition (1 bit)
 wire [ `MSB_8:0] offset8;    // jump offset (8 bit)
-wire [`MSB_15:0] offset15;   // jump offset (15 bit)
 wire [`MSB_11:0] addr11;     // addr acall (11 bit)
 wire [`MSB_16:0] addr16;     // addr lcall (11 bit)
+wire [ `MSB_8:0] pc;
 
 
-instrutionFetch( clk, rst, hit, en_ir_op, branch, pc, IR_op, rd, rs, cond, cond_b, offset8, offset15, offsetNE, addr11, addr16);
-
+instrutionFetch( clk, rst, hit, en_ir_op, pc_offset, endOp, (jnb & jb & jnc & jc & cjne & PC_load),
+                 IR_op, r1, r2, cpl_b, cond, cond_b, offset8, addr11, addr16, pc);          
 // ----------------------------------------------------------------------------------------------------------------
 // load Registers:
-reg [7:0] Reg; 
+wire [7:0] R[0:7];
+wire Reg;
+wire [7:0] acc; 
 reg bit_brch;
 
-always @(posedge clk) begin
+assign R[0] = R0;
+assign R[1] = R1;
+assign R[2] = R2;
+assign R[3] = R3;
+assign R[4] = R4;
+assign R[5] = R5;
+assign R[6] = R6;
+assign R[7] = R7;
 
-    if (rst) begin
-        Reg <= Rn[0];
-    end
-        
-    if (Rn_load & valid_insr_en) begin
-        if(IR_op == `OP_INC || IR_op == `OP_DEC )
-            Reg <= Rn[rd];
-        else
-            Reg <= Rn[rs];
-    end
-      
-end
+// Load Register:
+assign Reg = (~Rn_load || ~valid_insr_en || rst)? 8'h0: 
+             (IR_op == `OP_INC || IR_op == `OP_DEC || IR_op == `OP_MOV_R)? R[r1] : R[r2];
+
+// Load Acumulater:
+assign acc = (~A_load || ~valid_insr_en || rst)? 8'h0 : A;
+assign A = (A_load && alu)? acc: A;           // only update the acuumulator when used in an operation. 
+
 
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  MOV  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-wire [`MSB_8:0] addr;
-wire [`MSB_8:0] data_bus;
-wire read;
-wire wr;
+`define MOV_AR 2'b01
+`define MOV_R  2'b10
+`define MOV_B  2'b11
 
-assign addr = (IR_op == `OP_MOV_A || IR_op == `OP_MOV_R || IR_op == `OP_MOV_B)? rs: 8'h00;
+
+wire [`MSB_8:0] addr;
+wire [`MSB_8:0] data_bus_in;
+wire [`MSB_8:0] data_bus_out;
+wire read;
+wire write;
+wire R_save;
+wire direct, addressable_b, is_regist;
+reg rd, wr, address, dir; 
+reg [`MSB_8:0]data;
+
+
+assign read    = rd | (IR_op == `OP_MOV_R) ; 
+assign write   = wr; 
+assign addr    = address; 
+assign data_bus_in = data; 
+
+assign direct = dir;
+// Mov op:
+assign A   = ( (mov == `MOV_AR) && A_load && Rn_load )? Reg : A;    // mov A Rn 
+assign Reg = ( (mov == `MOV_R ) && Rn_load )? r2: Reg;              // mov Rn #data
+
+// Mov bit_adress, #data
+
+assign R_save = (mov == `MOV_R) && (op == `DEC) && (op == `INC) && Reg != R[r1];
+
+always @(posedge clk )begin
+    if(rst) begin
+        rd   <= 1'b0;
+        wr   <= 1'b0;
+        data <= 8'h0;
+        address <= 8'h0;
+    end 
+    if ( R_save )begin // Saves the register
+        data    <= Reg;
+        address <= r1;
+        dir     <= 1'b0;
+        wr      <= 1'b1;
+    end
+        
+end
 
 // assign 
 
-// RAM ram(clk, rst, wr, read, direct, addr, data_bus, A, P0, SP, TMOD, DPL, DPH, TL0, TL1, TH0, TH1, IE, IP, PSW, TCON, Rn);
-
-
+ RAM ram(clk, rst, write, read, direct, addressable_b , bit_address, addr, is_regist,
+         data_bus, A, P0, SP, TMOD, DPL, DPH, TL0, TL1, TH0, TH1, IE, IP, PSW, TCON,
+         A, P0, SP, TMOD, DPL, DPH, TL0, TL1, TH0, TH1, IE, IP, PSW, TCON, 
+          R0, R1, R2, R3, R4, R5, R6, R7, data_bus);
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  ALU  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 wire [3:0] operation;
@@ -177,39 +243,59 @@ wire imm;
 wire cpl_b;
 
 
-assign operation = (IR_op == `OP_ADD_D || IR_op == `OP_ADD_R)? `ADD :
-                   (IR_op == `OP_SUB_D || IR_op == `OP_SUB_R)? `SUBB : 
-                   (IR_op == `OP_DEC)                        ? `DEC :
-                   (IR_op == `OP_INC)                        ? `INC :
-                   (IR_op == `OP_XOR_D || IR_op == `OP_XOR_R)? `XRL :
-                   (IR_op == `OP_AND_D || IR_op == `OP_AND_R)? `ANL :                    
-                   (IR_op == `OP_OR_D  || IR_op == `OP_OR_R )? `XRL :
-                   (IR_op == `OP_CPL_B || IR_op == `OP_CPL_A)? `CPL : 
-                   (IR_op == `OP_SETB)                       ? `SETB :
-                   (IR_op == `OP_CLR)                        ? `CLR :
-                   (IR_op == `OP_RL)                         ? `RL :
-                   (IR_op == `OP_RR)                         ? `RR : `NO_OP;                    
+assign op = (IR_op == `OP_ADD_D || IR_op == `OP_ADD_R)? `ADD :
+            (IR_op == `OP_SUB_D || IR_op == `OP_SUB_R)? `SUBB : 
+            (IR_op == `OP_DEC)                        ? `DEC :
+            (IR_op == `OP_INC)                        ? `INC :
+            (IR_op == `OP_XOR_D || IR_op == `OP_XOR_R)? `XRL :
+            (IR_op == `OP_AND_D || IR_op == `OP_AND_R)? `ANL :                    
+            (IR_op == `OP_OR_D  || IR_op == `OP_OR_R )? `XRL :
+            (IR_op == `OP_CPL_B || IR_op == `OP_CPL_A)? `CPL : 
+            (IR_op == `OP_SETB)                       ? `SETB :
+            (IR_op == `OP_CLR)                        ? `CLR :
+            (IR_op == `OP_RL)                         ? `RL :
+            (IR_op == `OP_RR)                         ? `RR : `NO_OP;                    
 
 assign cpl_b = (IR_op == `OP_CPL_B )? 1'b1: 1'b0;
 
 assign imm   = (IR_op == `OP_ADD_D || IR_op == `OP_SUB_D || IR_op == `OP_XOR_D || IR_op == `OP_AND_D || IR_op == `OP_OR_D)? 1'b1: 1'b0; 
 
-ALU ALU( alu, imm, clk, rst, valid_insr_en, operation, rd, rs, cpl_b, A, B, overf, underf,PSW[7], co, p);
+ALU ALU( alu, imm, clk, rst, valid_insr_en, op, r1, r2, cpl_b, co, acc , B   ,Reg, acc, B, Reg,  overf, underf, co, p);
 
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  BRANCH  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-wire jnb, jb, jnc, jc, cjne;  
+`define JNB  3'b001
+`define JB   3'b010
+`define JNC  3'b011
+`define JC   3'b100
+`define CJNE 3'b101
 
+wire jnb, jb, jnc, jc, cjne; 
+wire [15:0]pc_offset; 
 
 // Conditions
-assign cjne = (( A == rs) & Jmux[`CJNE]);
-assign {jnc, jc} = { Jmux[`JNC] & ~BIT_load & ~bit_brch , Jmux[`JC] & ~BIT_load & bit_brch};
-assign {jnb, jb} = { Jmux[`JNB] & ~BIT_load &  ~PSW[7]  , Jmux[`JB] & ~BIT_load & PSW[7]};
+assign jnb  = ~cond_b     & (Jmux ==  `JNB );
+assign jb   =  cond_b     & (Jmux ==   `JB );
+assign jnc  = ~co         & (Jmux ==  `JNC );
+assign jc   = ~co         & (Jmux ==   `JC );
+assign cjne = (acc != r2) & (Jmux == `CJNE );
 
-always @(posedge clk) begin
-     
-    if (jnc | jc | jb | jnb | cjne);
-end 
+// ----------------------------------------------------------------------------------------------------------------
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<><<<<<<  CALL  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+`define CALL_1  3'b001  
+`define CALL_2  3'b011
+`define RET_1   3'b101
+`define RET_2   3'b111
+
+reg [7:0]pstack;
+
+
+assign SP = pstack;
+ 
+always @(posedge clk && call != 2'b00)begin
+    if ()
+end
+
 
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  others  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
