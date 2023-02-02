@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-`define CODE_LEN    8'hff
+`define CODE_LEN    16'hffff
 
 
 module ROM(pc, pc_data);

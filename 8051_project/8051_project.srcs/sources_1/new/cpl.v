@@ -4,7 +4,7 @@
 
 module cpl(op, a, result, mode, bit);
        
-    input  [3:0] op;   
+    input  [4:0] op;   
     input        mode;
     input        bit;
     input  [7:0] a;             // Temp accumulators

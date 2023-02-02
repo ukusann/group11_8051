@@ -5,7 +5,7 @@
 `define EN    1'b1
 
 module RlRr(op, a, result);
-    input  [3:0] op;
+    input        op;
     input  [7:0] a;
     output [7:0] result;
 

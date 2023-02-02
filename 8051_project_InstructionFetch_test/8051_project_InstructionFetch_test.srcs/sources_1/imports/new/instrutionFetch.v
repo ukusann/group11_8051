@@ -21,15 +21,17 @@
     ____________________________________________*/
  
  
- module instrutionFetch( clk, rst, hit, en_ir_op, branch, pc_in, IR_op, rd, rs, 
-                        cpl_b, cond, cond_b, offset8, addr11, addr16, pc_out);
+ module instrutionFetch( clk, rst, hit, en_ir_op, endOp, offset, op_call, IR_op, rd, rs, 
+                        cpl_b, cond, cond_b, offset8, addr11, addr16, pc_out, sp_load);
     
 input wire clk;
 input wire rst;
 input wire hit;          // 
 input wire en_ir_op;     // enable instrution register
-input wire branch;
-input wire [15:0] pc_in;           // program counter
+input wire endOp;
+input wire offset;
+input wire op_call;
+
 
 output wire [7:0] IR_op;      // Instrution
 output wire [7:0] rd;         // first register
@@ -41,25 +43,25 @@ output wire [7:0] offset8;    // jump offset (8 bit)
 output wire [7:0] addr11;     // addr acall (11 bit)
 output wire [7:0] addr16;     // addr lcall (11 bit)
 output wire [15:0] pc_out;
+output wire sp_load;
 
-
-reg fetched;
+reg fetched, stack_l;
 reg enable_fetch;
 wire [7:0] pc_data;                 // Instrution register -> 8 bit
-reg [31:0] insr;                   // Instruction Vector Reg -> 32 bit
+reg [31:0] insr;                    // Instruction Vector Reg -> 32 bit
 reg [15:0] pc;
 
-
+assign sp_load = stack_l;
 
 always @(posedge clk) begin
 
     if (rst) begin
         enable_fetch    <= 1'b1;
         fetched         <= 1'b0;
-        pc              <= pc_in;
+        pc              <= 16'd0;
     end
         
-    if (enable_fetch && en_ir_op) begin
+    if (enable_fetch && en_ir_op || op_call) begin
         insr[7:0] = pc_data;
         if(insr > 24'hFFFFFF) begin
             fetched    <= 1'b1;
@@ -71,7 +73,7 @@ always @(posedge clk) begin
             insr  <= (insr << 8'h8);
             fetched    <= 1'b0;
         end
-        pc <= pc + 8'h1;
+        pc <= pc_out + 8'h1;
     end
     else
         enable_fetch = 1'b1; 
@@ -81,16 +83,17 @@ end
 
 ROM code(pc_out, pc_data); // só somar PC quando flga estiver a 1
 
-assign pc_out = pc;
-assign IR_op    = fetched ?  insr [31:24] : 8'h0;  
-assign rd       = fetched ?  insr [23:16] : 8'h0;
-assign rs       = fetched ?  insr [15: 8] : 8'h0;
-assign cpl_b    = fetched ?  insr [  23 ] : 1'h0;
-assign cond_b   = fetched ?  insr [  23 ] : 1'h0;
-assign cond     = fetched ?  insr [23:16] : 8'h0;
-assign offset8  = fetched ?  insr [ 7: 0] : 8'h0;   
-assign addr11   = fetched ?  insr [26:16] : 11'h0;  // op[2] + op[1] + op[0] + insr [23:16] (acall) 
-assign addr16   = fetched ?  insr [23: 8] : 16'h0;
+assign pc_out   = (offset)?  offset8 + pc_out : pc;
+
+assign IR_op    = fetched ?  insr [31:24] :(endOp)? IR_op   : 8'h0;  
+assign rd       = fetched ?  insr [23:16] :(endOp)? rd      : 8'h0;
+assign rs       = fetched ?  insr [15: 8] :(endOp)? rs      : 8'h0;
+assign cpl_b    = fetched ?  insr [  23 ] :(endOp)? cpl_b   : 1'h0;
+assign cond_b   = fetched ?  insr [  23 ] :(endOp)? cond_b  : 1'h0;
+assign cond     = fetched ?  insr [23:16] :(endOp)? cond    : 8'h0;
+assign offset8  = fetched ?  insr [ 7: 0] :(endOp)? offset8 : 8'h0;   
+assign addr11   = fetched ?  insr [26:16] :(endOp)? addr11  : 11'h0;  // op[2] + op[1] + op[0] + insr [23:16] (acall) 
+assign addr16   = fetched ?  insr [23: 8] :(endOp)? addr16  : 16'h0;
 /*
 switch case opcodes
 clock

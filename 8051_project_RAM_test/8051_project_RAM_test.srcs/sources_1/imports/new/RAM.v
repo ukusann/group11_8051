@@ -90,7 +90,7 @@ reg [7:0] RegBank [3:0];
 initial begin
     SFR[ `A_ADDR  ] = A_in;
     SFR[ `P0_ADDR ] = P0_in;
-    SFR[ `SP_ADDR ] = SP_in;
+    SFR[ `SP_ADDR ] = 8'h07;
     SFR[`TMOD_ADDR] = TMOD_in;
     SFR[ `DPL_ADDR] = DPL_in;
     SFR[ `DPH_ADDR] = DPH_in;
