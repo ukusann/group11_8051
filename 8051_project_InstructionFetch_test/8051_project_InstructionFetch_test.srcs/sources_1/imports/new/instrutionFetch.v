@@ -27,7 +27,7 @@
     
 =======
 //_______________________________________________________________________
-// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  RAM  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  
+// <<<<<<<<<<<<<<<<<<<<<<  Instruction Fetch  >>>>>>>>>>>>>>>>>>>>>>>>>>>>  
 
 module instrutionFetch( clk, rst, hit, en_ir_op, branch, pc_in, IR_op, rd, rs, 
                         cpl_b, cond, cond_b, offset8, addr11, addr16, pc_out);

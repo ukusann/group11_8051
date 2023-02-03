@@ -30691,3 +30691,11 @@ selectButton(RDIResource.GraphicalView_ZOOM_IN, "Waveform Viewer_zoom_in"); // E
 // TclEventType: WAVEFORM_UPDATE_COMMANDS
 selectButton(RDIResource.GraphicalView_ZOOM_IN, "Waveform Viewer_zoom_in"); // E (f, cr)
 // HMemoryUtils.trashcanNow. Engine heap size: 3,013 MB. GUI used memory: 175 MB. Current time: 2/1/23, 6:54:00 PM WET
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// WARNING: HEventQueue.dispatchEvent() is taking  1090 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  17507066 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 3,013 MB. GUI used memory: 175 MB. Current time: 2/2/23, 12:11:42 AM WET
+// HMemoryUtils.trashcanNow. Engine heap size: 3,013 MB. GUI used memory: 197 MB. Current time: 2/2/23, 12:11:53 AM WET
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
