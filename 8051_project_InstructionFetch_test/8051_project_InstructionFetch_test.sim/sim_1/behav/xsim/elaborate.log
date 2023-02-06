@@ -4,6 +4,7 @@ Running: /tools/Xilinx/Vivado/2019.2/bin/unwrapped/lnx64.o/xelab -wto bb6307f7bb
 Using 8 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-5021] port 'op_call' is not connected on this instance [/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v:31]
 Completed static elaboration
 Starting simulation data flow analysis
 Completed simulation data flow analysis

@@ -1,50 +1,39 @@
 `timescale 1ns / 1ps
 
 module top(
-    input clock,
-    input reset,
-    output Halt,
+	input  wire clk,
+	input  wire rst,
+	input  wire hit,
+	input  wire PCload,
+	input  wire en_ir_op,
+	input  wire [2:0]mov,
+	input  wire alu,
+	input  wire Rn_load,
+	input  wire A_load,
+	input  wire B_load,
+	input  wire BIT_load,
+	input  wire [2:0]Jmux,
+    input  wire [1:0]call,
     
-	/*****input for bitstream test*****/
-	//input [3:0] A_input,
+	output wire IR_op,
+	output wire endOP
 
-	//--------------------------------
-	
-	/*****input for simulation*****/
-	input [7:0] A_input,
-    
-
-	/*****output for bitstream test*****/
-	//output [2:0] AOutPut
-
-	//--------------------------------
-	
-	/*****output for simulation*****/
-	output [7:0] AOutPut
-
-    );
-
-	wire[2:0] IR_op;
-
-
-ctrlunit ctrl_unit(
-	.clock		(clock),
-	.reset		(reset),
-	.cond_A		(cond_A),
-	.IR_op		(IR_op),
-	.PCload		(PCload),
-	.IRload		(IRload),
-	.INmux		(INmux),
-	.Aload		(Aload),
-	.JNZmux		(JNZmux),
-	.Halt		(Halt),
-	.Out_enable (Out_enable)
 );
 
-datapath data_path(
-	.clk(clk),
-    .rst(rst),
-    .hit(hit), 
-    .en_ir_op(en_ir_op)
-);
+// ctrlunit ctrl_unit(
+// 	.clock		(clock),
+// 	.reset		(reset),
+// 	.cond_A		(cond_A),
+// 	.IR_op		(IR_op),
+// 	.PCload		(PCload),
+// 	.IRload		(IRload),
+// 	.INmux		(INmux),
+// 	.Aload		(Aload),
+// 	.JNZmux		(JNZmux),
+// 	.Halt		(Halt),
+// 	.Out_enable (Out_enable)
+// 
+
+
+datapath data_path(clk, rst, hit, PCload, en_ir_op, mov, alu, Rn_load, A_load, B_load, BIT_load, Jmux, call, IR_op, endOP); 
 endmodule

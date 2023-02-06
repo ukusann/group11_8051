@@ -9,7 +9,9 @@ module tb_tob_1;
     reg rst;
     reg hit;          
     reg en_ir_op;     // enable instrution register
-    reg branch;
+    reg endOp;
+	reg offset;
+	reg op_call;
     reg [15:0] pc_in;  
 
 	//--------Outputs-------
@@ -23,6 +25,7 @@ module tb_tob_1;
     wire [10:0]  addr11;     // addr acall (11 bit)
     wire [15:0]  addr16;     // addr lcall (11 bit)
     wire [15:0]  pc_out;
+	wire 		 sp_load;
 
 	// Instantiate the Unit Under Test (UUT)
 	top uut (
@@ -30,7 +33,8 @@ module tb_tob_1;
 		.rst			(rst),
 		.hit			(hit),
 		.en_ir_op		(en_ir_op),
-		.branch			(branch),
+		.endOp			(endOp),
+		.offset			(offset),
 		.pc_in			(pc_in),
 		.IR_op			(IR_op),
 		.rd				(rd),
@@ -41,7 +45,8 @@ module tb_tob_1;
 		.offset8		(offset8),
 		.addr11			(addr11),
 		.addr16			(addr16),
-		.pc_out			(pc_out)
+		.pc_out			(pc_out),
+		.sp_load		(sp_load)
 	); 
 
 	initial begin
@@ -50,8 +55,7 @@ module tb_tob_1;
 		rst			= 1;
     	hit 		= 0;
 		en_ir_op 	= 1'b1;
-		branch 		= 0;
-		pc_in		= 16'h0000;;        
+		pc_in		= 16'h0000;        
 		
 		// Wait 100 ns for global rst to finish
 		#10;

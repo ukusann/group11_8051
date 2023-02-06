@@ -185,7 +185,7 @@ always @(posedge clock) begin
     
     else if (rd) begin
         if(addr > 8'h7F)
-            data_bus_out <= direct ? (addressable_b ? {7'h0,SFR[addr][bit_address]}: SFR[addr]) 
+            data_out_temp <= direct ? (addressable_b ? {7'h0,SFR[addr][bit_address]}: SFR[addr]) 
                             : data_out_temp <= data[addr];
         else if(addr < `BIT_ADDR_MAX && addr >= `BIT_ADDR_MIN)
             data_out_temp <= addressable_b ? {7'h0, data[addr][bit_address]} : data[addr]; 

@@ -51,11 +51,17 @@
 `define OP_RR      8'h03
 
 // BRANCH
-`define JNB  3'd1;
-`define JB   3'd2;
-`define JNC  3'd3;
-`define JC   3'd4;
-`define CJNE 3'd5; 
+//`define JNB  3'd1;
+//`define JB   3'd2;
+//`define JNC  3'd3;
+//`define JC   3'd4;
+//`define CJNE 3'd5; 
+
+`define JNB  3'b001
+`define JB   3'b010
+`define JNC  3'b011
+`define JC   3'b100
+`define CJNE 3'b101
 
 `define OP_ACALL        8'h11
 `define OP_LCALL        8'h12
@@ -125,38 +131,36 @@ reg overf, underf;
 wire ov;
 
 // SFR Registers 
-wire [`MSB_8:0] A;
-wire [`MSB_8:0] B;
-reg  [`MSB_8:0] Rn [0:7];
-wire [`MSB_8:0] PSW;
-wire [`MSB_8:0] P0;
-wire [`MSB_8:0] SP;
-wire [`MSB_8:0] TMOD;
-wire [`MSB_8:0] DPL;
-wire [`MSB_8:0] DPH;
-wire [`MSB_8:0] TL0;
-wire [`MSB_8:0] TL1;
-wire [`MSB_8:0] TH0;
-wire [`MSB_8:0] TH1;
-wire [`MSB_8:0] IE; 
-wire [`MSB_8:0] IP;
-wire [`MSB_8:0] TCON;
+wire [7:0] A;
+wire [7:0] B;
+reg  [7:0] Rn [0:7];
+wire [7:0] PSW;
+wire [7:0] P0;
+wire [7:0] SP;
+wire [7:0] TMOD;
+wire [7:0] DPL;
+wire [7:0] DPH;
+wire [7:0] TL0;
+wire [7:0] TL1;
+wire [7:0] TH0;
+wire [7:0] TH1;
+wire [7:0] IE; 
+wire [7:0] IP;
+wire [7:0] TCON;
 
 // Reg File:
 
-wire [ `MSB_8:0] r1;         // first register
-wire [ `MSB_8:0] r2;          // second register
-wire             cpl_b;      // register bit cpl (1 bit)
-wire [ `MSB_8:0] cond;       // branch condition (8 bit)
-wire             cond_b;     // branch condition (1 bit)
-wire [ `MSB_8:0] offset8;    // jump offset (8 bit)
-wire [`MSB_11:0] addr11;     // addr acall (11 bit)
-wire [`MSB_16:0] addr16;     // addr lcall (11 bit)
-wire [ `MSB_8:0] pc;
+wire [ 7:0] r1;         // first register
+wire [ 7:0] r2;          // second register
+wire        cpl_b;      // register bit cpl (1 bit)
+wire [ 7:0] cond;       // branch condition (8 bit)
+wire        cond_b;     // branch condition (1 bit)
+wire [ 7:0] offset8;    // jump offset (8 bit)
+wire [10:0] addr11;     // addr acall (11 bit)
+wire [15:0] addr16;     // addr lcall (11 bit)
+wire [ 7:0] pc;
 
-
-instrutionFetch( clk, rst, hit, en_ir_op, pc_offset, endOp, (jnb & jb & jnc & jc & cjne & PC_load),
-                 IR_op, r1, r2, cpl_b, cond, cond_b, offset8, addr11, addr16, pc);          
+      
 // ----------------------------------------------------------------------------------------------------------------
 // load Registers:
 wire [7:0] R[0:7];
@@ -172,6 +176,8 @@ assign R[4] = R4;
 assign R[5] = R5;
 assign R[6] = R6;
 assign R[7] = R7;
+
+wire valid_insr_en = hit & en_ir_op;
 
 // Load Register:
 assign Reg = (~Rn_load || ~valid_insr_en || rst)? 8'h0: 
@@ -189,15 +195,15 @@ assign A = (A_load && alu)? acc: A;           // only update the acuumulator whe
 `define MOV_B  2'b11
 
 
-wire [`MSB_8:0] addr;
-wire [`MSB_8:0] data_bus_in;
-wire [`MSB_8:0] data_bus_out;
+wire [7:0] addr;
+wire [7:0] data_bus_in;
+wire [7:0] data_bus_out;
 wire read;
 wire write;
 wire R_save;
 wire direct, addressable_b, is_regist;
 reg rd, wr, address, dir; 
-reg [`MSB_8:0]data;
+reg [7:0]data;
 
 
 assign read    = rd | (IR_op == `OP_MOV_R) ; 
@@ -260,15 +266,10 @@ assign cpl_b = (IR_op == `OP_CPL_B )? 1'b1: 1'b0;
 
 assign imm   = (IR_op == `OP_ADD_D || IR_op == `OP_SUB_D || IR_op == `OP_XOR_D || IR_op == `OP_AND_D || IR_op == `OP_OR_D)? 1'b1: 1'b0; 
 
-ALU ALU( alu, imm, clk, rst, valid_insr_en, op, r1, r2, cpl_b, co, acc , B   ,Reg, acc, B, Reg,  overf, underf, co, p);
 
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  BRANCH  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-`define JNB  3'b001
-`define JB   3'b010
-`define JNC  3'b011
-`define JC   3'b100
-`define CJNE 3'b101
+
 
 wire jnb, jb, jnc, jc, cjne; 
 wire [15:0]pc_offset; 
@@ -293,21 +294,26 @@ reg [7:0]pstack;
 assign SP = pstack;
  
 always @(posedge clk && call != 2'b00)begin
-    if ()
+    pstack = pstack + 8'h0;
 end
 
 
 // ----------------------------------------------------------------------------------------------------------------
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<  others  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-assign ov  = rst? 0 : overf|underf;
+assign ov  = rst? 1'b0 : overf|underf;
 
-wire valid_insr_en = hit & en_ir_op;
+
 
 //====================================================
 //====================================================
 
 // update flags
-assign PSW = rst? 0 : {co, 0, 0, RS[1] ,RS[0], ov, 0, p};
+assign PSW = rst? 8'h0 : {co, 1'b0, 1'b0, RS[1] ,RS[0], ov, 1'b0, p};
 
 
+
+ALU ALU( alu, imm, clk, rst, valid_insr_en, op, r1, r2, cpl_b, co, acc , B   ,Reg, acc, B, Reg,  overf, underf, co, p);
+
+instrutionFetch fetch( clk, rst, hit, en_ir_op, pc_offset, endOp, (jnb & jb & jnc & jc & cjne & PC_load),
+                 IR_op, r1, r2, cpl_b, cond, cond_b, offset8, addr11, addr16, pc);    
 endmodule

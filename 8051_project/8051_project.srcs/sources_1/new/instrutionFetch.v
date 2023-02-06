@@ -21,7 +21,7 @@
     ____________________________________________*/
  
  
- module instrutionFetch( clk, rst, hit, en_ir_op, endOp, offset, op_call, IR_op, rd, rs, 
+ module instrutionFetch( clk, rst, hit, en_ir_op, endOp, offset, op_call, pc_in, IR_op, rd, rs, 
                         cpl_b, cond, cond_b, offset8, addr11, addr16, pc_out, sp_load);
     
 input wire clk;
@@ -31,7 +31,7 @@ input wire en_ir_op;     // enable instrution register
 input wire endOp;
 input wire offset;
 input wire op_call;
-
+input wire [15:0] pc_in;
 
 
 // ==============================================================

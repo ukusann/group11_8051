@@ -1,0 +1,45 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/ALU.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-2458] undeclared symbol x, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/ALU.v:66]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/RAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RAM
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module datapath
+INFO: [VRFC 10-2458] undeclared symbol bit_address, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:241]
+INFO: [VRFC 10-2458] undeclared symbol data_bus, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:242]
+INFO: [VRFC 10-2458] undeclared symbol R0, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R1, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R2, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R3, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R4, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R5, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R6, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+INFO: [VRFC 10-2458] undeclared symbol R7, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:244]
+WARNING: [VRFC 10-3248] data object 'cpl_b' is already declared [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:249]
+WARNING: [VRFC 10-3703] second declaration of 'cpl_b' ignored [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:249]
+INFO: [VRFC 10-2458] undeclared symbol op, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:252]
+INFO: [VRFC 10-2458] undeclared symbol p, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:315]
+INFO: [VRFC 10-2458] undeclared symbol endOp, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:317]
+INFO: [VRFC 10-2458] undeclared symbol PC_load, assumed default net type wire [/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/datapath.v:317]
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/ctrlunit.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ctrlunit
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/imports/drive-download-20221004T151820Z-001/top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/ROM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ROM
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/instrutionFetch.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module instrutionFetch
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/RlRr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RlRr
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/cpl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module cpl
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/addSub.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module addSub
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/xorAndOr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xorAndOr
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sources_1/new/clrSet.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clrSet
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project/8051_project.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_tob_1
+ERROR: [VRFC 10-1247] port connections cannot be mixed ordered and named [/home/matheus/group11_8051/8051_project/8051_project.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v:27]
+ERROR: [VRFC 10-2865] module 'tb_tob_1' ignored due to previous errors [/home/matheus/group11_8051/8051_project/8051_project.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v:5]

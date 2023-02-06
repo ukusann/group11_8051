@@ -6,4 +6,3 @@ INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_pro
 INFO: [VRFC 10-311] analyzing module top
 INFO: [VRFC 10-2263] Analyzing Verilog file "/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module tb_tob_1
-WARNING: [VRFC 10-2096] empty statement in sequential block [/home/matheus/group11_8051/8051_project_InstructionFetch_test/8051_project_InstructionFetch_test.srcs/sim_1/imports/drive-download-20221004T151820Z-001/tb_tob_1.v:47]

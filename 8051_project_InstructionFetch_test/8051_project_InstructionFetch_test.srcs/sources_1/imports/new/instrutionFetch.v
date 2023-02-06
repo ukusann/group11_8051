@@ -21,7 +21,7 @@
     ____________________________________________*/
  
  
- module instrutionFetch( clk, rst, hit, en_ir_op, endOp, offset, op_call, IR_op, rd, rs, 
+ module instrutionFetch( clk, rst, hit, en_ir_op, endOp, offset, pc_in, op_call, IR_op, rd, rs, 
                         cpl_b, cond, cond_b, offset8, addr11, addr16, pc_out, sp_load);
     
 input wire clk;
@@ -31,6 +31,7 @@ input wire en_ir_op;     // enable instrution register
 input wire endOp;
 input wire offset;
 input wire op_call;
+input wire [15:0] pc_in;
 
 
 
@@ -47,13 +48,13 @@ output wire [ 7:0] offset8;   // jump offset (8 bit)
 output wire [10:0] addr11;    // addr acall (11 bit)
 output wire [15:0] addr16;    // addr lcall (16 bit)
 output wire [15:0] pc_out;
-output wire sp_load;
+output wire        sp_load;
 
 reg fetched, stack_l;
-wire [7:0] pc_data;                 // Instrution register -> 8 bit
-reg [31:0] insr;                    // Instruction Vector Reg -> 32 bit
+wire[ 7:0] pc_data;           // Instrution register -> 8 bit
+reg [31:0] insr;              // Instruction Vector Reg -> 32 bit
 reg [15:0] pc;
-reg [2:0] counter;
+reg [ 2:0] counter;
 
 
 
