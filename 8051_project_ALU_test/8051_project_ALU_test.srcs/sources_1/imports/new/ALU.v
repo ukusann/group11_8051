@@ -74,6 +74,4 @@ assign A_out = (op_alu == `ADD || op_alu == `INC || op_alu == `SUBB || op_alu ==
                     (op_alu == `ANL || op_alu == `ORL || op_alu == `XRL)? result_logic :
                     (op_alu == `CLR)? result_cpl :
                     (op_alu == `SETB)? result_sc : A_in; 
-
-
 endmodule

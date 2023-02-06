@@ -16,6 +16,14 @@ initial begin
     code_memo[8'h1] = 8'hD5;
     code_memo[8'h2] = 8'h00;
     code_memo[8'h3] = 8'h0F;
+    code_memo[8'h4] = 8'h11;
+    code_memo[8'h5] = 8'h11;
+    code_memo[8'h6] = 8'h11;
+    code_memo[8'h7] = 8'h11;
+    code_memo[8'h8] = 8'h22;
+    code_memo[8'h9] = 8'h22;
+    code_memo[8'hA] = 8'h22;
+    code_memo[8'hB] = 8'h22;
 
 end
 
